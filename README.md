@@ -44,14 +44,54 @@ When we apply an active high signal to the signal pin of the relay module from a
 
  
 # PROGRAM:
+~~~
+#define BLYNK_TEMPLATE_ID "YourTemplateID"
+#define BLYNK_DEVICE_NAME "HomeAutomation"
+#include <ESP8266WiFi.h>
+#include <BlynkSimpleEsp8266.h>
 
+char auth[] = "YourAuthToken";
+char ssid[] = "YourWiFiName";
+char pass[] = "YourWiFiPassword";
+
+int relay1 = D1;
+int relay2 = D2;
+
+void setup()
+{
+  pinMode(relay1, OUTPUT);
+  pinMode(relay2, OUTPUT);
+  digitalWrite(relay1, HIGH);
+  digitalWrite(relay2, HIGH);
+
+  Blynk.begin(auth, ssid, pass);
+}
+
+BLYNK_WRITE(V1)
+{
+  digitalWrite(relay1, param.asInt());
+}
+
+BLYNK_WRITE(V2)
+{
+  digitalWrite(relay2, param.asInt());
+}
+
+void loop()
+{
+  Blynk.run();
+}
+~~~
 
  
 # Output:
-
-
-
+~~~
+https://go.screenpal.com/watch/cT6DFjnbvhD
+~~~
 ## Result:
+~~~
+The IoT-based home automation system was successfully designed, programmed, and demonstrated. Appliances connected to the relay module could be controlled from a smartphone through the IoT platform, proving the effectiveness of remote home automation.
+~~~
 
 
 
